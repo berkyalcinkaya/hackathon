@@ -1,19 +1,17 @@
 let years = {
     freshman: {
         div: null,
-        courses: []
+        courses: [],
         /*courses: [
             {
                 name: 'NC Math I',
                 GPA: 4
             }
         ]*/
-    }
-}
+    },
+};
 
 let globalCourseId = 0;
-
-
 
 const yearsContainer = document.getElementById('yearsContainer');
 
@@ -41,11 +39,10 @@ function createCourseDiv(courseObj) {
     courseDiv.appendChild(title);
 
     //Remove button
-    const removeButton = document.createElement('button')
+    const removeButton = document.createElement('button');
     removeButton.appendChild(document.createTextNode('Remove'));
     removeButton.onclick = () => removeCourse(courseObj.id);
     courseDiv.appendChild(removeButton);
-
 
     return courseDiv;
 }
@@ -55,13 +52,37 @@ function addCourse(year, courseObj) {
     years[year].div.appendChild(courseDiv);
     years[year].courses.push({
         ...courseObj,
-        div: courseDiv
+        div: courseDiv,
     });
 }
 
 function removeCourse(id) {
+    for (const yearName in years) {
+        const year = years[yearName];
+        for (let i = 0; i < year.courses.length; i++) {
+            if (year.courses[i].id == id) {
+                year.courses[i].div.remove(); //Remove from DOM
+                year.courses.splice(i, 1); //Remove it from the array
+            }
+        }
+    }
 }
 
+function openCustomCourseDialog() {
+    document.getElementById('customCourseDialog').style.display = 'block';
+}
+function closeCustomCourseDialog() {
+    document.getElementById('customCourseDialog').style.display = 'none';
+}
+
+// If the user clicks off the modal
+window.onclick = event => {
+    if (event.target == document.getElementById('customCourseDialog')) {
+        document.getElementById('customCourseDialog').style.display = 'none';
+    }
+};
+
+function addNewCustomCourse() {}
 
 years.freshman.div = createYearDiv('Freshman');
 //years.freshman.div.appendChild(createCourseDiv('asdf'));
