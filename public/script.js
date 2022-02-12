@@ -38,6 +38,16 @@ function createCourseDiv(courseObj) {
     title.appendChild(document.createTextNode(courseObj.title));
     courseDiv.appendChild(title);
 
+    //GPA
+    const gpa = document.createElement('p');
+    gpa.appendChild(document.createTextNode('GPA: ' + courseObj.gpa));
+    courseDiv.appendChild(gpa);
+
+    //Subject
+    const subject = document.createElement('p');
+    subject.appendChild(document.createTextNode('Subject: ' + courseObj.subject));
+    courseDiv.appendChild(subject);
+
     //Remove button
     const removeButton = document.createElement('button');
     removeButton.appendChild(document.createTextNode('Remove'));
@@ -82,11 +92,33 @@ window.onclick = event => {
     }
 };
 
-function addNewCustomCourse() {}
+function addNewCustomCourse() {
+    const title = document.getElementById('customCourseTitle').value;
+    const gpa = parseFloat(document.getElementById('customCourseGPA').value);
+    const subject = document.getElementById('customCourseSubject').value
+
+    if (title == '' || gpa == '' || subject == '') {
+        alert('Please select all options');
+        return;
+    }
+
+    addCourse('freshman', {
+        title,
+        gpa,
+        subject
+    });
+    document.getElementById('customCourseTitle').value = '';
+    document.getElementById('customCourseGPA').value = '';
+    document.getElementById('customCourseSubject').value = '';
+    closeCustomCourseDialog();
+}
 
 years.freshman.div = createYearDiv('Freshman');
-//years.freshman.div.appendChild(createCourseDiv('asdf'));
 
 yearsContainer.appendChild(years.freshman.div);
 
-addCourse('freshman', { title: 'NC Math I' });
+addCourse('freshman', {
+    title: 'NC Math I',
+    gpa: 4.0,
+    subject: 'math'
+});

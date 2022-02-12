@@ -19,7 +19,25 @@
     <div class="modal" id="customCourseDialog">
         <div class="modalContent">
             <span class="closeButton" onclick='closeCustomCourseDialog()'>&times;</span>
-            asdf
+            <label for="customCourseTitle">Title: </label>
+            <input id="customCourseTitle"></input>
+            <br />
+
+            <label for="customCourseGPA">GPA Points: </label>
+            <input id="customCourseGPA" type="number"></input>
+            <br />
+
+            <label for="customCourseSubject">Subject: </label>
+            <select id="customCourseSubject" id="customCourseSubject">
+                <option value="math">Math</option>
+                <option value="english">English</option>
+                <option value="history">History</option>
+            </select>
+            <br />
+
+            <button onclick='addNewCustomCourse()'>
+                Add course
+            </button>
         </div>
     </div>
 
