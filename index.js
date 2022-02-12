@@ -5,9 +5,7 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/', async (req, res) => {
-    res.sendFile('./index.html', { root: path.join(__dirname) });
-});
+app.use(express.static('public'))
 
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
