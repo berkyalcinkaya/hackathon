@@ -1,0 +1,21 @@
+body {
+    /*background-color: #515151;*/
+}
+
+.year {
+    border: 2px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    /*overflow: hidden;*/
+}
+
+.course {
+    border: 2px dotted black;
+    width: 150px;
+    height: 150px;
+    /*float: left;*/
+    margin: 10px;
+    text-align: center;
+}
