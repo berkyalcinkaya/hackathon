@@ -16,9 +16,23 @@
         Add New Custom Course
     </button>
 
+    <button onclick='openPresetCourseDialog()'>
+        Add New Preset Course
+    </button>
+
     <div class="modal" id="customCourseDialog">
         <div class="modalContent">
             <span class="closeButton" onclick='closeCustomCourseDialog()'>&times;</span>
+            <label for="customCourseYear">Year: </label>
+            <select id="customCourseYear" id="customCourseYear">
+                <option disabled selected value> -- Select a year -- </option>
+                <option value="freshman">Freshman</option>
+                <option value="sophomore">Sophomore</option>
+                <option value="junior">Junior</option>
+                <option value="senior">Senior</option>
+            </select>
+            <br />
+
             <label for="customCourseTitle">Title: </label>
             <input id="customCourseTitle"></input>
             <br />
@@ -29,9 +43,16 @@
 
             <label for="customCourseSubject">Subject: </label>
             <select id="customCourseSubject" id="customCourseSubject">
-                <option value="math">Math</option>
-                <option value="english">English</option>
-                <option value="history">History</option>
+                <option disabled selected value> -- Select a subject -- </option>
+                <option value="Social Science">Social Science</option>
+                <option value="Humanities">Humanities</option>
+                <option value="Mathematics">Mathematics</option>
+                <option value="Physics">Physics</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Environmental Science">Environmental Science</option>
+                <option value="Biology">Biology</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Computer Science">Computer Science</option>
             </select>
             <br />
 
@@ -41,22 +62,39 @@
         </div>
     </div>
 
-    <!--
-    <h2>Freshman Year</h2>
-    <div class='year'>
-        <div class='course'>
-            <b class='courseTitle'>NC Math I</b>
-        </div>
-        <div class='course'>
-            <b class='courseTitle'>Honors Bio I</b>
-        </div>
-        <div class='course'>
-            <b class='courseTitle'>Honors English I</b>
-        </div>
-    </div>-->
+    <div class="modal" id="presetCourseDialog">
+        <div class="modalContent">
+            <span class="closeButton" onclick='closePresetCourseDialog()'>&times;</span>
+            <label for="presetCourseYear">Year: </label>
+            <select id="presetCourseYear" id="presetCourseYear">
+                <option disabled selected value> -- Select a year -- </option>
+                <option value="freshman">Freshman</option>
+                <option value="sophomore">Sophomore</option>
+                <option value="junior">Junior</option>
+                <option value="senior">Senior</option>
+            </select>
+            <br />
 
+            <label for="presetCoursesSelect">Course: </label>
+            <select id="presetCoursesSelect">
+                <option disabled selected value> -- Select a preset course -- </option>
+                <!--This is programmatically filled in by js-->
+            </select>
+            <br />
 
+            <label for="presetCourseGPA">GPA Points: </label>
+            <input id="presetCourseGPA" type="number"></input>
+            <br />
 
+            <button onclick='addNewPresetCourse()'>
+                Add course
+            </button>
+        </div>
+    </div>
+
+    <p id='gpa'>GPA: 0.00</p>
+
+    <script src='presetCourses.js'></script>
     <script src='script.js'></script>
     </body>
 </html>
