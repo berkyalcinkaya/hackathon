@@ -8,7 +8,7 @@ With our intuitive UI, students can create and evaluate their educational roadma
 From planning to prediction.
 
 ### The Data - manual vector encoding
- - Utilized NC State's Course Catalog to record 11 required courses for each of the ten chosen majors
+ - We utilized NC State's Course Catalog to record 11 required courses for each of the ten chosen majors
  - These courses were then represented as vectors based on their subject (ex: Humanities, physics, engineering)
 
 ### The Input - from an intuitive user interface
