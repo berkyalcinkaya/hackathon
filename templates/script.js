@@ -174,6 +174,27 @@ function closePresetCourseDialog() {
     document.getElementById('presetCourseDialog').style.display = 'none';
 }
 
+function openStatsDialog() {
+    let allCourses = [];
+    for (const yearName in years) {
+        for (const course of years[yearName].courses) {
+            allCourses.push(course);
+        }
+    }
+
+    fetch("getRecommendation", {
+      method: "POST",
+      headers: {'Content-Type': 'application/json'}, 
+      body: JSON.stringify(allCourses)
+    }).then(res => res.json()).then(json => {
+        console.log(json);
+    });
+}
+
+function closeStatsDialog() {
+    //document.getElementById('presetCourseDialog').style.display = 'none';
+}
+
 // If the user clicks off the modal
 window.onclick = event => {
     if (event.target == document.getElementById('customCourseDialog')) {
