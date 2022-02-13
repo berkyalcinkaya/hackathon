@@ -131,5 +131,4 @@ dist
 .pnp.*
 
 __pycache__/
-*.ipynb
 *_data.xlsx
