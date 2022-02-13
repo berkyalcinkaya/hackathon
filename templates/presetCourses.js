@@ -47,27 +47,27 @@ const presetCourses = [
     {
         title: 'English II',
         subject: 'Humanities',
-        prereqs: ['Honors English I', 'English I']
+        prereqs: ['English I']
     },
     {
         title: 'English III',
         subject: 'Humanities',
-        prereqs: ['Honors English II', 'English II']
+        prereqs: ['English II']
     },
     {
         title: 'AP Language and Composition',
         subject: 'Humanities',
-        prereqs: ['Honors English II']
+        prereqs: ['English II']
     },
     {
         title: 'English IV',
         subject: 'Humanities',
-        prereqs: ['Honors English III', 'English III']
+        prereqs: ['English III']
     },
     {
         title: 'AP Literature and Composition',
         subject: 'Humanities',
-        prereqs: ['Honors English III']
+        prereqs: ['English III']
     },
     {
         title: 'Biology',
