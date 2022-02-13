@@ -44,6 +44,7 @@ function createYearDiv(name) {
 
     const title = document.createElement('h2');
     const titleText = document.createTextNode(name + ' Year');
+    title.setAttribute('style', 'padding-left: 10px');
     title.appendChild(titleText);
 
     const courseList = document.createElement('div');
@@ -77,7 +78,7 @@ function createCourseDiv(courseObj) {
     courseDiv.appendChild(removeButton);
 
     //Course title
-    const title = document.createElement('h2');
+    const title = document.createElement('h3');
     title.appendChild(document.createTextNode(courseObj.title));
     cardBody.appendChild(title);
 
@@ -89,6 +90,7 @@ function createCourseDiv(courseObj) {
     //Your grade input
     const gradeLabel = document.createElement('label');
     gradeLabel.appendChild(document.createTextNode('Grade: '));
+    gradeLabel.setAttribute('style', 'margin-bottom: 1rem; margin-right: 5px;');
     const grade = document.createElement('select');
     for (const letter in gpaNums) {
         const opt = document.createElement('option');

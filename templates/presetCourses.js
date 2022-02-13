@@ -65,7 +65,7 @@ const presetCourses = [
         prereqs: ['Honors English III', 'English III']
     },
     {
-        title: 'AP Literature and COmposition',
+        title: 'AP Literature and Composition',
         subject: 'English',
         prereqs: ['Honors English III']
     },
@@ -125,11 +125,6 @@ const presetCourses = [
         prereqs: ['American History I']
     },
     {
-        title: 'American History: Founding Principles, Civics and Economics',
-        subject: 'Humanities',
-        prereqs: []
-    },
-    {
         title: 'AP Human Geography',
         subject: 'Humanities',
         prereqs: []
@@ -152,11 +147,6 @@ const presetCourses = [
     {
         title: 'Economics and Personal Finance',
         subject: 'Social Science',
-        prereqs: []
-    },
-    {
-        title: 'Founding Principles of the Unites States of America and North Carolina: Civic Literacy',
-        subject: 'Humanities',
         prereqs: []
     },
 ]
