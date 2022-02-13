@@ -23,4 +23,4 @@ From planning to prediction.
 
 - The sum of the pairwise cosine similariy scores between each major and the inputted highschool courses are normalized by the maximum similarity score, and the three majors that produce the greatest cosine similarity score are recommended to the students
 
-Check out major_rec_engine.ipynb to see a walkthrough of the engine.
+Check out major_rec_engine/major_rec_engine.ipynb to see a walkthrough of the engine.
