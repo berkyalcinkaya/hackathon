@@ -119,6 +119,7 @@ function addCourse(year, courseObj) {
     });
     updateGPACalc();
     updateGradReq();
+    updatePrereqs();
 }
 
 function setGrade(id, grade) {
@@ -150,6 +151,7 @@ function removeCourse(id) {
     }
     updateGPACalc();
     updateGradReq();
+    updatePrereqs();
 }
 
 function openCustomCourseDialog() {
@@ -246,7 +248,6 @@ function updateGradReq() {
                 totals[course.subject] = 1;
         }
     }
-    console.log(totals);
 
     const ul = document.getElementById('gradReq');
     while (ul.firstChild) {
@@ -257,6 +258,39 @@ function updateGradReq() {
         const li = document.createElement('li');
         li.appendChild(document.createTextNode('Need ' + numMissing + ' more ' + req + ' classes'));
         ul.appendChild(li);
+    }
+}
+
+function updatePrereqs() {
+    const currentlyTaking = new Map();
+    let yearNum = 0;
+    for (const yearName in years) {
+        for (const course of years[yearName].courses) {
+            currentlyTaking.set(course.title, yearNum);
+        }
+        yearNum++;
+    }
+
+    yearNum = 0;
+    for (const yearName in years) {
+        for (const course of years[yearName].courses) {
+            if (!course.hasOwnProperty('prereqs')) continue;
+
+            let isGood = true;
+            for (const prereq of course.prereqs) {
+                if (!currentlyTaking.has(prereq) ||
+                    currentlyTaking.get(prereq) > yearNum) {
+                    isGood = false;
+                }
+            }
+
+            if (isGood) {
+                course.div.classList.remove('missingPrereq');
+            } else {
+                course.div.classList.add('missingPrereq');
+            }
+        }
+        yearNum++;
     }
 }
 

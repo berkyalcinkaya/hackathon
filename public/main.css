@@ -16,6 +16,10 @@
     text-align: center;
 }
 
+.missingPrereq {
+    background-color: red;
+}
+
 .modal {
     display: none;
     position: fixed;
