@@ -1,4 +1,5 @@
 from flask import Flask, render_template, send_from_directory, jsonify, request
+from major_rec.recomend import Recomendation
 
 
 app = Flask(__name__, static_url_path='/templates')
@@ -21,14 +22,28 @@ def scriptJS():
 
 @app.route("/getRecommendation", methods=["POST"])
 def getRecommendation():
-    print(request.json)
-    for course in request.json:
-        print(course)
+    
+    print("printing request data...\n",request.json)
 
-    responseData = {
-        'asdf': 1,
-        'qwerty': 0.1234
-    }
+
+    
+    #for course in request.json:
+    #    print(type(course)) # each item in request.json is a python dictionary
+    
+
+    if (request.json):
+        rec = Recomendation(request.json)
+        responseData = rec.get_rec()
+        print("\nresponse data", responseData)
+    else:
+        print("No input data recieved")
+        responseData = {}
+
+    #responseData = {
+    #    'asdf': 1,
+    #    'qwerty': 0.1234
+    #}
+    
     return jsonify(responseData)
 
 if __name__ == '__main__':
