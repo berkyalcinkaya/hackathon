@@ -1,12 +1,7 @@
 /*
 TODO
-Prereqs
-
 Major recommendation button
  - Rate each course on how much you liked it
-
-
-Save/Load
 */
 let years = {
     freshman: {
@@ -29,20 +24,21 @@ let years = {
 
 let globalCourseId = 0;
 
+//How many extra points are given. So a 4.5 course with a B would give 3.5 gpa
 const gpaNums = {
-    'A+': 0,
-    'A': -0.25,
-    'A-': -0.50,
-    'B+': -0.75,
-    'B': -1.00,
-    'B-': -1.25,
-    'C+': -1.50,
-    'C': -1.75,
-    'C-': -2.00,
-    'D+': -2.25,
-    'D': -2.50,
-    'D-': -2.75,
-    'F': -3.00
+    'A+': 4.3 - 4.0,
+    'A' : 4.0 - 4.0,
+    'A-': 3.7 - 4.0,
+    'B+': 3.3 - 4.0,
+    'B' : 3.0 - 4.0,
+    'B-': 2.7 - 4.0,
+    'C+': 2.3 - 4.0,
+    'C' : 2.0 - 4.0,
+    'C-': 1.7 - 4.0,
+    'D+': 1.3 - 4.0,
+    'D' : 1.0 - 4.0,
+    'D-': 0.7 - 4.0,
+    'F' : 0.0 - 4.0,
 };
 
 const yearsContainer = document.getElementById('yearsContainer');
@@ -55,7 +51,11 @@ function createYearDiv(name) {
     const titleText = document.createTextNode(name + ' Year');
     title.appendChild(titleText);
 
+    const courseList = document.createElement('div');
+    courseList.classList.add('courseList');
+
     yearDiv.appendChild(title);
+    yearDiv.appendChild(courseList);
 
     return yearDiv;
 }
@@ -64,6 +64,11 @@ function createCourseDiv(courseObj) {
     courseObj.id = globalCourseId++;
     const courseDiv = document.createElement('div');
     courseDiv.classList.add('course');
+    courseDiv.classList.add('card');
+    courseDiv.classList.add('flex-row-reverse');
+
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
 
     //Remove button
     const removeButton = document.createElement('span');
@@ -75,12 +80,12 @@ function createCourseDiv(courseObj) {
     //Course title
     const title = document.createElement('h2');
     title.appendChild(document.createTextNode(courseObj.title));
-    courseDiv.appendChild(title);
+    cardBody.appendChild(title);
 
     //Subject
     const subject = document.createElement('p');
     subject.appendChild(document.createTextNode('Subject: ' + courseObj.subject));
-    courseDiv.appendChild(subject);
+    cardBody.appendChild(subject);
 
     //Your grade input
     const gradeLabel = document.createElement('label');
@@ -90,29 +95,31 @@ function createCourseDiv(courseObj) {
         const opt = document.createElement('option');
         opt.value = letter;
         opt.text = letter;
+        if (opt.text == 'A') opt.selected = true;
         grade.appendChild(opt);
     }
     grade.onchange = evnt => {
         setGrade(courseObj.id, evnt.target.value);
     }
-    courseObj.grade = 'A+';
+    courseObj.grade = 'A';
 
     //GPA
     const gpa = document.createElement('p');
     gpa.classList.add('gpaDisplay');
     gpa.appendChild(document.createTextNode('Quality Points: ' + (courseObj.gpa + gpaNums[courseObj.grade]) + '/' + courseObj.gpa));
-    courseDiv.appendChild(gpa);
+    cardBody.appendChild(gpa);
 
-    courseDiv.appendChild(gradeLabel);
-    courseDiv.appendChild(grade);
+    cardBody.appendChild(gradeLabel);
+    cardBody.appendChild(grade);
 
+    courseDiv.appendChild(cardBody);
 
     return courseDiv;
 }
 
 function addCourse(year, courseObj) {
     const courseDiv = createCourseDiv(courseObj);
-    years[year].div.appendChild(courseDiv);
+    years[year].div.getElementsByClassName('courseList')[0].appendChild(courseDiv);
     years[year].courses.push({
         ...courseObj,
         div: courseDiv,
@@ -254,7 +261,7 @@ function updateGradReq() {
         ul.removeChild(ul.firstChild);
     }
     for (const req in reqs) {
-        const numMissing = reqs[req] - (totals.hasOwnProperty(req) ? totals[req] : 0);
+        const numMissing = Math.max(0, reqs[req] - (totals.hasOwnProperty(req) ? totals[req] : 0));
         const li = document.createElement('li');
         li.appendChild(document.createTextNode('Need ' + numMissing + ' more ' + req + ' classes'));
         ul.appendChild(li);
@@ -285,9 +292,10 @@ function updatePrereqs() {
             }
 
             if (isGood) {
-                course.div.classList.remove('missingPrereq');
+                course.div.style = "";
             } else {
-                course.div.classList.add('missingPrereq');
+                //course.div.classList.add('missingPrereq');
+                course.div.style = "border: 1px solid red";
             }
         }
         yearNum++;
