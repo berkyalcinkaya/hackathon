@@ -212,22 +212,39 @@ function openStatsDialog() {
         }
     }
 
-    fetch("getRecommendation", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'}, 
-      body: JSON.stringify(allCourses)
-    }).then(res => res.json()).then(json => {
-        console.log('Got recommendations', json);
+    if (allCourses.length >= 3) {
+        fetch("getRecommendation", {
+          method: "POST",
+          headers: {'Content-Type': 'application/json'}, 
+          body: JSON.stringify(allCourses)
+        }).then(res => res.json()).then(json => {
+            console.log('Got recommendations', json);
+            const ul = document.getElementById('recommendations');
+            while (ul.firstChild) {
+                ul.removeChild(ul.firstChild);
+            }
+            if (json) {
+                for (const rec of json) {
+                    const li = document.createElement('li');
+                    li.appendChild(document.createTextNode(rec.Major + ': ' + rec.Score));
+                    ul.appendChild(li);
+                }
+            } else {
+                const li = document.createElement('li');
+                li.appendChild(document.createTextNode('Add/Rate courses to see your recommended majors'));
+                ul.appendChild(li);
+            }
+        });
+    } else {
         const ul = document.getElementById('recommendations');
         while (ul.firstChild) {
             ul.removeChild(ul.firstChild);
         }
-        for (const rec in json) {
-            const li = document.createElement('li');
-            li.appendChild(document.createTextNode(rec + ': ' + json[rec]));
-            ul.appendChild(li);
-        }
-    });
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode('Add/Rate more courses to see your recommended majors'));
+        ul.appendChild(li);
+    
+    }
 
     document.getElementById('statsDialog').style.display = 'block';
 }
@@ -277,7 +294,7 @@ function addNewPresetCourse() {
     const year = document.getElementById('presetCourseYear').value;
     const gpa = parseFloat(document.getElementById('presetCourseGPA').value);
     let courseObj = presetCourses.filter(c => c.title == title);
-    if (courseObj.length == 0 || year == '' || gpa == '') {
+    if (courseObj.length == 0 || year == '' || isNaN(gpa)) {
         alert('Please select all options');
         return;
     }

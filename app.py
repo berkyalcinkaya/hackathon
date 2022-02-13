@@ -22,21 +22,10 @@ def scriptJS():
 
 @app.route("/getRecommendation", methods=["POST"])
 def getRecommendation():
-    
-    print("printing request data...\n",request.json)
-
-
-    
-    #for course in request.json:
-    #    print(type(course)) # each item in request.json is a python dictionary
-    
-
     if (request.json):
         rec = Recomendation(request.json)
         responseData = rec.get_rec()
-        print("\nresponse data", responseData)
     else:
-        print("No input data recieved")
         responseData = {}
 
     #responseData = {

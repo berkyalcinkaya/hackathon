@@ -123,9 +123,6 @@ class Recomendation():
         # turn the scores and their majors into a sorted list of tuples
         scores = sorted(zip(major_distances, majors), reverse=reverse_bool)
         
-        # debugging
-        print(f"Predicted scores for each major in the dataset {scores[0:3]}\n")
-        
         # we care only about the top three scores
         return scores[:3]
 
@@ -150,7 +147,6 @@ class Recomendation():
         for idx,tup in enumerate(lst_of_tuples):
             major = str(tup[1])
             score = int(tup[0][0][0])
-            print(major,score)
             json_temp[idx]["Major"]=major
             json_temp[idx]["Score"]=score
         
