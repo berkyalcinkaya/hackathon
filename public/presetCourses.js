@@ -7,7 +7,7 @@ const presetCourses = [
     {
         title: 'NC Math II',
         subject: 'Mathematics',
-        prereqs: ['NC Math I']
+        prereqs: ['NC Math I'] 
     },
     {
         title: 'NC Math III',
