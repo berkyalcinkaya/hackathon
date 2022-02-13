@@ -129,5 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# model directory
-ml_model/
+__pycache__/
+*.ipynb
+*_data.xlsx
