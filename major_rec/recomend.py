@@ -52,7 +52,7 @@ class Recomendation():
 
         # setting all weights to 0 will crash the engine
         if sum(input_course_ratings)==0:
-            input_course_ratins = [1 for i in input_course_ratings]
+            input_course_ratings = [1 for i in input_course_ratings]
         
         return input_course_vectors, input_course_ratings
     
