@@ -132,3 +132,6 @@ dist
 
 __pycache__/
 *_data.xlsx
+major_rec/.ipynb_checkpoints/
+major_rec/nlp_exploration.ipynb
+project_submission/
