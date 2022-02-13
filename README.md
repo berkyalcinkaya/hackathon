@@ -1,10 +1,11 @@
 # COURSPACE.TECH
-A web app that helps highschoolers prepare for the academic world ahead
+A web app that helps high schoolers prepare for their academic world ahead.
 
-## THE User Interface
-Add courses to your high school timeline, calculate your GPA, view your progress on NC's graduation requirements
+## The User Interface
+With our intuitive UI, students can create and evaluate their educational roadmap. Users can add courses to their high school timeline, calculate their GPA, and view their progress on NC's graduation requirements
 
 ## The COURSPACE Recommendation Engine
+From planning to prediction
 
 ### The Data - manual vector encoding
  - Utilized NC State's Course Catalog to record 11 required courses for each of the ten chosen majors
