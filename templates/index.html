@@ -15,7 +15,7 @@
     <header class="p-3 bg-dark text-white">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <h1 class="fw-bold mb-0">Course Layout</h1>
+                <h1 class="fw-bold mb-0">Coursepace.tech</h1>
 
                 <div style='margin-left: auto'>
                     <button class='mb-2 btn btn-lg rounded-4 btn-primary' onclick='openCustomCourseDialog()'>
@@ -112,11 +112,24 @@
         </div>
     </div>
 
-    <p id='gpa'>GPA: 0.00</p>
-    <p>Graduation Requirements: </p>
-    <ul id='gradReq'>
-        <!-- This is programmatically filled in by js -->
-    </ul>
+    <div class="modal" id="statsDialog">
+        <div class="modalContent">
+            <span class="closeButton" onclick='closeStatsDialog()'>&times;</span>
+            <h2>Stats</h2>
+            <p id='gpa'>GPA: 0.00</p>
+            <p>Graduation Requirements: </p>
+            <ul id='gradReq'>
+                <!-- This is programmatically filled in by js -->
+            </ul>
+
+            <p>College Major Recommendations: </p>
+            <ul id="recommendations">
+
+            </ul>
+
+        </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src='presetCourses.js'></script>

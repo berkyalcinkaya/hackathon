@@ -1,8 +1,3 @@
-/*
-TODO
-Major recommendation button
- - Rate each course on how much you liked it
-*/
 let years = {
     freshman: {
         div: null,
@@ -60,6 +55,10 @@ function createYearDiv(name) {
     return yearDiv;
 }
 
+function formatGPA(decimal) {
+    return decimal.toFixed(2);
+}
+
 function createCourseDiv(courseObj) {
     courseObj.id = globalCourseId++;
     const courseDiv = document.createElement('div');
@@ -102,15 +101,32 @@ function createCourseDiv(courseObj) {
         setGrade(courseObj.id, evnt.target.value);
     }
     courseObj.grade = 'A';
+    cardBody.appendChild(gradeLabel);
+    cardBody.appendChild(grade);
 
     //GPA
     const gpa = document.createElement('p');
     gpa.classList.add('gpaDisplay');
-    gpa.appendChild(document.createTextNode('Quality Points: ' + (courseObj.gpa + gpaNums[courseObj.grade]) + '/' + courseObj.gpa));
+    gpa.appendChild(document.createTextNode('Quality Points: ' + formatGPA(courseObj.gpa + gpaNums[courseObj.grade]) + '/' + formatGPA(courseObj.gpa)));
     cardBody.appendChild(gpa);
 
-    cardBody.appendChild(gradeLabel);
-    cardBody.appendChild(grade);
+    //Course rating
+    const ratingLabel = document.createElement('label');
+    ratingLabel.appendChild(document.createTextNode('Rating: '));
+    const rating = document.createElement('input');
+    rating.setAttribute('type', 'range');
+    rating.setAttribute('min', '0');
+    rating.setAttribute('max', '10');
+    rating.setAttribute('value', '0');
+    rating.classList.add('ratingSlider');
+    courseObj.rating = 0;
+    rating.onchange = evnt => {
+        setRating(courseObj.id, evnt.target.value);
+    }
+    cardBody.appendChild(ratingLabel);
+    cardBody.appendChild(rating);
+
+
 
     courseDiv.appendChild(cardBody);
 
@@ -135,7 +151,7 @@ function setGrade(id, grade) {
         for (let i = 0; i < year.courses.length; i++) {
             if (year.courses[i].id == id) {
                 year.courses[i].grade = grade;
-                const gpaText = 'Quality Points: ' + (year.courses[i].gpa + gpaNums[year.courses[i].grade]) + '/' + year.courses[i].gpa
+                const gpaText = 'Quality Points: ' + formatGPA(year.courses[i].gpa + gpaNums[year.courses[i].grade]) + '/' + formatGPA(year.courses[i].gpa);
                 year.courses[i].div.getElementsByClassName('gpaDisplay')[0].innerText = gpaText;
                 break;
             }
@@ -143,6 +159,18 @@ function setGrade(id, grade) {
     }
 
     updateGPACalc();
+}
+
+function setRating(id, rating) {
+    for (const yearName in years) {
+        const year = years[yearName];
+        for (let i = 0; i < year.courses.length; i++) {
+            if (year.courses[i].id == id) {
+                year.courses[i].rating = rating;
+                break;
+            }
+        }
+    }
 }
 
 function removeCourse(id) {
@@ -187,12 +215,23 @@ function openStatsDialog() {
       headers: {'Content-Type': 'application/json'}, 
       body: JSON.stringify(allCourses)
     }).then(res => res.json()).then(json => {
-        console.log(json);
+        console.log('Got recommendations', json);
+        const ul = document.getElementById('recommendations');
+        while (ul.firstChild) {
+            ul.removeChild(ul.firstChild);
+        }
+        for (const rec in json) {
+            const li = document.createElement('li');
+            li.appendChild(document.createTextNode(rec + ': ' + json[rec]));
+            ul.appendChild(li);
+        }
     });
+
+    document.getElementById('statsDialog').style.display = 'block';
 }
 
 function closeStatsDialog() {
-    //document.getElementById('presetCourseDialog').style.display = 'none';
+    document.getElementById('statsDialog').style.display = 'none';
 }
 
 // If the user clicks off the modal
@@ -202,6 +241,9 @@ window.onclick = event => {
     }
     if (event.target == document.getElementById('presetCourseDialog')) {
         document.getElementById('presetCourseDialog').style.display = 'none';
+    }
+    if (event.target == document.getElementById('statsDialog')) {
+        document.getElementById('statsDialog').style.display = 'none';
     }
 };
 
@@ -257,8 +299,8 @@ function updateGPACalc() {
             amount++;
         }
     }
-    const gpa = (Math.round(1e6*sum / amount) / 1e6).toFixed(2); //Make percent with 3 dec
-    document.getElementById('gpa').innerText = 'GPA: ' + gpa;
+    const decimal = sum / amount;
+    document.getElementById('gpa').innerText = 'GPA: ' + formatGPA(decimal);
 }
 
 function updateGradReq() {
@@ -316,7 +358,7 @@ function updatePrereqs() {
                 course.div.style = "";
             } else {
                 //course.div.classList.add('missingPrereq');
-                course.div.style = "border: 1px solid red";
+                course.div.style = "border: 2px solid red";
             }
         }
         yearNum++;
