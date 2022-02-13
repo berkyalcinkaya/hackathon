@@ -1,8 +1,5 @@
 /*
 TODO
-Graduation Requirements
- - Need certain number in each subject
-
 Prereqs
 
 Major recommendation button
@@ -121,6 +118,7 @@ function addCourse(year, courseObj) {
         div: courseDiv,
     });
     updateGPACalc();
+    updateGradReq();
 }
 
 function setGrade(id, grade) {
@@ -151,6 +149,7 @@ function removeCourse(id) {
         }
     }
     updateGPACalc();
+    updateGradReq();
 }
 
 function openCustomCourseDialog() {
@@ -215,6 +214,7 @@ function addNewPresetCourse() {
     });
     document.getElementById('presetCourseYear').value = '';
     document.getElementById('presetCoursesSelect').value = '';
+    document.getElementById('presetCourseGPA').value = '';
     closePresetCourseDialog();
 }
 
@@ -231,6 +231,35 @@ function updateGPACalc() {
     document.getElementById('gpa').innerText = 'GPA: ' + gpa;
 }
 
+function updateGradReq() {
+    let reqs = {
+        'Mathematics': 3,
+        'English': 4,
+        'Humanities': 2,
+    }
+    let totals = {};
+    for (const yearName in years) {
+        for (const course of years[yearName].courses) {
+            if (totals.hasOwnProperty(course.subject))
+                totals[course.subject]++;
+            else
+                totals[course.subject] = 1;
+        }
+    }
+    console.log(totals);
+
+    const ul = document.getElementById('gradReq');
+    while (ul.firstChild) {
+        ul.removeChild(ul.firstChild);
+    }
+    for (const req in reqs) {
+        const numMissing = reqs[req] - (totals.hasOwnProperty(req) ? totals[req] : 0);
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode('Need ' + numMissing + ' more ' + req + ' classes'));
+        ul.appendChild(li);
+    }
+}
+
 years.freshman.div = createYearDiv('Freshman');
 years.sophomore.div = createYearDiv('Sophomore');
 years.junior.div = createYearDiv('Junior');
@@ -240,3 +269,5 @@ yearsContainer.appendChild(years.freshman.div);
 yearsContainer.appendChild(years.sophomore.div);
 yearsContainer.appendChild(years.junior.div);
 yearsContainer.appendChild(years.senior.div);
+
+updateGradReq();
