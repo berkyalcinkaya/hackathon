@@ -2,10 +2,10 @@
 A web app that helps high schoolers prepare for their academic world ahead.
 
 ## The User Interface
-With our intuitive UI, students can create and evaluate their educational roadmap. Users can add courses to their high school timeline, calculate their GPA, and view their progress on NC's graduation requirements
+With our intuitive UI, students can create and evaluate their educational roadmap by adding courses to their high school timeline, calculating their GPA, and viewing their progress on NC's graduation requirements
 
 ## The COURSPACE Recommendation Engine
-From planning to prediction
+From planning to prediction.
 
 ### The Data - manual vector encoding
  - Utilized NC State's Course Catalog to record 11 required courses for each of the ten chosen majors
@@ -23,3 +23,4 @@ From planning to prediction
 
 - The sum of the pairwise cosine similariy scores between each major and the inputted highschool courses are normalized by the maximum similarity score, and the three majors that produce the greatest cosine similarity score are recommended to the students
 
+Check out major_rec_engine.ipynb to see a walkthrough of the engine.
