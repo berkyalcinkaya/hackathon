@@ -331,10 +331,12 @@ function updateGradReq() {
     let totals = {};
     for (const yearName in years) {
         for (const course of years[yearName].courses) {
+            let sub = course.subject;
+            if (course.title.match(/English/)) sub = 'English';
             if (totals.hasOwnProperty(course.subject))
-                totals[course.subject]++;
+                totals[sub]++;
             else
-                totals[course.subject] = 1;
+                totals[sub] = 1;
         }
     }
 
